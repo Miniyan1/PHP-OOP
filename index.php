@@ -4,6 +4,7 @@ class User{
     public $lastName;
     public $gender;
     public $address;
+    public $status;
 
     function __construct()
     {
@@ -20,55 +21,93 @@ class User{
     function getFirstName(){
         return $this->firstName;
     }
+        function setLastName($lastname){
+            $this->lastName =$lastname;
+        }
+            function getLastName(){
+                return $this->lastName;
+            }
         function setGender($gender){
             $this->gender = $gender;
         }
-            function getGender(){
-                if($this->gender == "Male"){
-                    return "Mr." . $this->firstName;
-                }
-                return "Ms." . $this->firstName;
-            }
 
-//        function gender(){
-//            if($this->gender == 'Male'){
-//                return "Mr." . $this->firstName;
-//            }
-//        }
+        // function  getGender()
+        // {
+        //     if($this->gender=="Female" && $this->status=="Married")
+        //     {
+        //         return "Mrs. " . $this->firstName;
+        //     }
+        //     if($this->gender=="Female" && $this->status=="Unmarried")
+        //     {
+        //         // return "Ms. " . $this->firstName;
+        //         return "Mr. " . $this->firstName;
+        //     }
+        //         return "Ms. " . $this->firstName;
+        //         // return "Mr. " . $this->firstName;
+
+        // }
+       function getGender()
+       {
+//             if($gender=="Female" && $status=="Married"){
+//     echo"You are female Married";
+// }elseif($gender=="Female" && $status=="Unmarried"){
+//     echo "You are female Unmarried";
+// }else{
+//     echo "You are male";
+// }
+           if ($this->gender=="Female" && $this->status=="Married") {
+               return "Mrs. " . $this->firstName;
+           } elseif ($this->gender=="Female" && $this->status=="Unmarried") {
+               return "Ms. " . $this->firstName;
+           } else {
+               return "Mr. " . $this->firstName;
+           }
+       }
+          
     function welcome(){
-
-        if( $this->firstName =="Miniyan" ){
-            return " welcome "."  " . $this->firstName ." You are from " . $this->address;
+        if($this->firstName =="Miniyan") {
+            return " Welcome " . "  " . $this->firstName . ' ' . $this->lastName . "." . "You are from " . $this->address;
         }
-        return $this->firstName;
+        return  "  " . $this->firstName . ' ' . $this->lastName . "." . "You are from " . $this->address;
 
     }
     function setaddress($address){
+        if($address ==""){
+            echo "enter address";
+        }
         $this->address = $address;
     }
     function getaddress(){
         return $this->address;
     }
+    function setstatus($status){
+        $this->status = $status;
+    }
+    function getstatus(){
+        return $this->status;
+    }
 }
 
 $user = new User();
-$user->setFirstName( "Miniyan");
-$user->setGender("Male");
+$user->setFirstName($_POST["firstname"]);
+$user->setLastName($_POST["lastname"]);
+$user->setGender($_POST["gender"]);
 $user->setaddress($_POST["address"]);
+$user->setstatus($_POST["status"]);
 echo $user->getGender();
-echo $user->welcome();
+$user->welcome();
 
 $user1 = new User();
 $user1->setFirstName( "<BR> rana");
-echo $user1->welcome();
+$user1->welcome();
 
 $user2 = new User();
 $user2->setFirstName( "<BR> ram");
-echo $user2->welcome();
+$user2->welcome();
 
 $user3 = new User();
 $user3->setFirstName( "<BR> shyam");
-echo $user3->welcome();
+$user3->welcome();
 
 ?>
 <html>
@@ -76,20 +115,41 @@ echo $user3->welcome();
 
 </head>
 <body>
-<div class="container">
-    <form action="index.php" class="form" method="POST">
-        Address:<input type="text" class="form-group" name="address">
-        <button class="btn" btn-normal>Save</button>
-    </form>
-</div>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<form action="index.php" method="POST">
+    <div class="form-group">
+        <label for="exampleInputEmail1">FirstName</label>
+        <input type="text" class="form-control" name="firstname" placeholder="">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">LastName</label>
+        <input type="TEXT" class="form-control" name="lastname" placeholder="">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Address</label>
+        <input type="text" class="form-control" name="address" placeholder="">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Gender</label>
+        <Select class="form-group" name="gender">
+            <option>Male</option>
+            <option>Female</option>
+        </Select>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Marital Status</label>
+        <Select class="form-group" name="status">
+            <option>Married</option>
+            <option>Unmarried</option>
+        </Select>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<div class="card" style="width:50%; margin:auto; text-align: center;" ><?php echo $user->welcome(); ?></div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
 </body>
 </html>
 
