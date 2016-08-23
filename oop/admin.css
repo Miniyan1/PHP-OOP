@@ -1,0 +1,19 @@
+#nav{
+margin-left: 45%;
+}
+.form-group{
+    width:30%;
+    margin: auto;
+}
+#data{
+    color: red;
+
+
+}
+#form{
+    margin-top: 50px;
+}
+button{
+    margin-top: inherit;
+    margin-left: 30%;
+}

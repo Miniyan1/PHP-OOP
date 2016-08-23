@@ -1,0 +1,8 @@
+{
+    "name": "leapfrog/composer",
+    "description": "this is a demo",
+    "type": "libary",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {}
+}
